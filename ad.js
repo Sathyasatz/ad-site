@@ -13,13 +13,13 @@ app.get('/', (req, res) => res.send('Hello World!'))
 //on getting a GET request, a cookie will be set if it does not exist yet, otherwise it will be logged
 app.get('/banner', function (req, res) {
     hits++;
-    // res.cookie("third-party", hits.toString(), { maxAge: 9999999 });
-    if (!req.cookies.hasOwnProperty("third-party")){
-        res.cookie("third-party", hits.toString(), { maxAge: 9999999 });
-    }
-    else{
+    res.cookie("third-party", hits.toString(), { maxAge: 9999999 });
+    // if (!req.cookies.hasOwnProperty("third-party")){
+    //     res.cookie("third-party", hits.toString(), { maxAge: 9999999 });
+    // }
+    // else{
         console.log(req.cookies);
-    }
+    // }
     if (req.query.location === 'home') {
 
         res.sendFile(path.join(__dirname + "/home.avif"));
