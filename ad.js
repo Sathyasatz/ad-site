@@ -15,7 +15,7 @@ app.get('/banner', function (req, res) {
     hits++;
     // res.cookie("third-party", hits.toString(), { maxAge: 9999999 });
     if (!req.cookies['third-party']) {
-        res.setHeader('Set-Cookie',  'third-party=' + hits.toString() + '; SameSite=None; ');
+        res.setHeader('Set-Cookie',  'third-party=' + hits.toString() + '; SameSite=None; Secure; Path=/;');
         // res.cookie("third-party", hits.toString(), { maxAge: 9999999 });
     }
     else{
