@@ -14,10 +14,11 @@ app.get('/', (req, res) => res.send('Hello World!'))
 app.get('/banner', function (req, res) {
     hits++;
     // res.cookie("third-party", hits.toString(), { maxAge: 9999999 });
-    if (!req.cookies['third-party']){
-        res.cookie("third-party", hits.toString(), { maxAge: 9999999 });
+    if (!req.cookies['third-party']) {
+        res.setHeader('Set-Cookie',  'third-party=' + hits.toString() + '; SameSite=None; Secure; Path=/; Partitioned;');
+        // res.cookie("third-party", hits.toString(), { maxAge: 9999999 });
     }
-    else {
+    else{
         console.log(req.cookies);
     }
     if (req.query.location === 'home') {
