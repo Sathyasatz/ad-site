@@ -16,7 +16,7 @@ app.get('/banner', function (req, res) {
     // res.cookie("third-party", hits.toString(), { maxAge: 9999999 });
     if (!req.cookies['ad-site-cookie']) {
 
-        var cookievalue = req.query.location ? req.query.location : "none";
+        var cookievalue = req.query.location ? req.query.location : "default";
         res.setHeader('Set-Cookie', 'ad-site-cookie=' + cookievalue + '; SameSite=None; Secure; Path=/;');
 
         if (req.query.location == 'default') {
@@ -31,11 +31,16 @@ app.get('/banner', function (req, res) {
         // if (!req.query.location) {
         //     res.sendFile(path.join(__dirname + "/products.webp"));
         // }
+        if (req.query.location != 'default') {
+            var cookievalue = req.query.location ? req.query.location : "default";
+            res.setHeader('Set-Cookie', 'ad-site-cookie=' + cookievalue + '; SameSite=None; Secure; Path=/;');
+        }
         if (req.cookies['ad-site-cookie'] == 'default') {
             res.sendFile(path.join(__dirname + "/default.png"))
         } else {
             res.sendFile(path.join(__dirname + "/sponser.png"));
         }
+
         // res.sendFile(path.join(__dirname + "/sponser.png"));
         console.log(req.cookies);
     }
