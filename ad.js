@@ -31,7 +31,12 @@ app.get('/banner', function (req, res) {
         // if (!req.query.location) {
         //     res.sendFile(path.join(__dirname + "/products.webp"));
         // }
-        res.sendFile(path.join(__dirname + "/sponser.png"));
+        if (req.cookies['ad-site-cookie'] == 'default') {
+            res.sendFile(path.join(__dirname + "/default.png"))
+        } else {
+            res.sendFile(path.join(__dirname + "/sponser.png"));
+        }
+        // res.sendFile(path.join(__dirname + "/sponser.png"));
         console.log(req.cookies);
     }
 
