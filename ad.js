@@ -14,20 +14,48 @@ app.get('/', (req, res) => res.send('Hello World!'))
 app.get('/banner', function (req, res) {
     hits++;
     // res.cookie("third-party", hits.toString(), { maxAge: 9999999 });
-    if (!req.cookies['third-party']) {
-        res.setHeader('Set-Cookie',  'third-party=' + hits.toString() + '; SameSite=None; Secure; Path=/; Partitioned');
+    if (!req.cookies['ad-site-cookie']) {
+
+        var cookievalue = req.query.location ? req.query.location : "none";
+        res.setHeader('Set-Cookie', 'ad-site-cookie=' + cookievalue + '; SameSite=None; Secure; Path=/;');
+
+        if (req.query.location == 'default') {
+            res.sendFile(path.join(__dirname + "/default.png"))
+        } else {
+            res.sendFile(path.join(__dirname + "/sponser.png"));
+        }
         // res.cookie("third-party", hits.toString(), { maxAge: 9999999, httpOnly: true , sameSite:'none', secure:true});
     }
-    else{
+    else {
+        
+        // if (!req.query.location) {
+        //     res.sendFile(path.join(__dirname + "/products.webp"));
+        // }
+        res.sendFile(path.join(__dirname + "/sponser.png"));
         console.log(req.cookies);
     }
-    if (req.query.location === 'home') {
 
-        res.sendFile(path.join(__dirname + "/home.avif"));
-    } else {
+    // if (req.query.location) {
+    //     res.sendFile(path.join(__dirname + "/sponser.png"));
+    // } else {
+    //     res.sendFile(path.join(__dirname + "/sponser.png"));
+    // }
+    // if (req.query.location === 'home') {
 
-        res.sendFile(path.join(__dirname + "/office.webp"));
-    }
+    //     res.sendFile(path.join(__dirname + "/home.avif"));
+    // } else if (req.query.location === 'product1') {
+
+    //     res.sendFile(path.join(__dirname + "/product1.webp"));
+    // } else if (req.query.location === 'product2') {
+
+    //     res.sendFile(path.join(__dirname + "/product2.avif"));
+    // } else if (req.query.location === 'product3') {
+
+    //     res.sendFile(path.join(__dirname + "/product3.webp"));
+    // }
+    // else if (req.query.location === 'office') {
+    //     res.sendFile(path.join(__dirname + "/office.webp"));
+    // } 
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
