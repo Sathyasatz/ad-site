@@ -17,7 +17,7 @@ app.get('/banner', function (req, res) {
     if (!req.cookies['ad-site-cookie']) {
 
         var cookievalue = req.query.location ? req.query.location : "default";
-        res.setHeader('Set-Cookie', 'ad-site-cookie=' + cookievalue + '; SameSite=None; Secure; Path=/;');
+        res.setHeader('Set-Cookie', 'ad-site-cookie=' + cookievalue + '; SameSite=None; Secure; Path=/; Partitioned');
 
         if (req.query.location == 'default') {
             res.sendFile(path.join(__dirname + "/default.png"))
